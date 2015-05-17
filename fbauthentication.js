@@ -1,4 +1,5 @@
   // This is called with the results from from FB.getLoginStatus().
+
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -8,8 +9,10 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      testAPI();
+      // testAPI();
       search_for_friends();
+      show_search_container()
+      console.log("Supposed to have deleted guys");
 
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
@@ -77,4 +80,10 @@
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
     });
+  }
+
+
+  function show_search_container() {
+    $("#login").hide();
+    $("#search").show();
   }

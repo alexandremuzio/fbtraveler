@@ -43,6 +43,10 @@ FB.api('/me/friends?limit=50', function(response) {
 	}
 })};
 
+function KeyWordFacebook(keyword) {
+
+}
+
 
 // <h1>Reading Edges from the Graph API</h1>
 
