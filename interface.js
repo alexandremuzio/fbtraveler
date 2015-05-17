@@ -5,28 +5,36 @@ var numberOfInitialResults = 9;
 function select_photo(event) {
 	//var checkbox = $(this);
 	var parent_div = $(event.target).parent().parent();
-
+	
 	var idx = parseInt(parent_div.attr("id"));
 	console.log(idx);
 	//if (checkbox.is(':checked')) {
 	if (!listFb[idx].chosen) {
 		listFb[idx].chosen = 1;
-		parent_div.css("background-color","green");
+		//parent_div.css("background-color","green");
+		$(event.target).css("border", "solid 10px green");
 	}
 	else {
 		listFb[idx].chosen = 0;
-		parent_div.css("background-color","");
+		//parent_div.css("background-color","");
+		$(event.target).css("border", "");
 	}
 }
 
 function createElement(photo, idx) {
 	console.log(photo);
-	return $.parseHTML('<div id="' + idx + '" class="col-xs-4"> \
-		<a> <img src="' + photo.url + '" width="250" height="250" onclick="select_photo(event)"> </a>\
-		<h3><a href="#">Project Name</a></h3>\
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>\
+	if (photo.from == 'flickr') {
+		return $.parseHTML('<div id="' + idx + '" class="col-xs-4"> \
+		<a> <img src="' + photo.url + '" width="300" height="300" onclick="select_photo(event)"> </a>\
+		<h4><b>' + photo.from + '</b></h4>\
 		</div>');
-
+	}
+	else {
+		return $.parseHTML('<div id="' + idx + '" class="col-xs-4"> \
+		<a> <img src="' + photo.url + '" width="300" height="300" onclick="select_photo(event)"> </a>\
+		<h4><a href="' + photo.fromLink + '" target="blank"><b>' + photo.from + '</b></a></h4>\
+		</div>');
+	}
 	//TODO: retirei    href="' + photo.link + '" target="blank"      do a da imagem
 }
 
@@ -45,7 +53,7 @@ function createRow(id, photoList) {
 function searchByKeyword() {
 	var keyword = $("#search_box").val();
 	console.log("Showing results for " + keyword);
-	$('#result_keyword').text("Results for: " + keyword);
+	$('#result_keyword').text("Best results for " + keyword);
 	
 	listFb = searchForFriendsPhotosMock(keyword);
 
