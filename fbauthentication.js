@@ -10,9 +10,8 @@
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
       // testAPI();
-      search_for_friends();
-      show_search_container()
-      console.log("Supposed to have deleted guys");
+      showSearchContainer();
+      showFacebookProfilePhoto();
 
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
@@ -83,7 +82,7 @@
   }
 
 
-  function show_search_container() {
+  function showSearchContainer() {
     $("#login").hide();
     $("#search").show();
   }

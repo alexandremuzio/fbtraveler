@@ -37,7 +37,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#" id="profile_photo">
+                    <!-- <img src="http://placehold.it/30x30&amp;text=Who" alt=""> -->
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -72,54 +74,22 @@
 
     <!-- Page Content -->
     <div class="container" id="search" style="display:none;">
-      <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" id="search_box" placeholder="Search">
-          </div>
-          <button type="button" class="btn btn-default"   onclick="searchByKeyword()">Submit</button>
-      </form>
-
-        <!-- Page Header -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header" id="result_keyword"></h1>
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" id="search_box" placeholder="Search">
             </div>
-        </div>
+            <button type="button" class="btn btn-default"   onclick="searchByKeyword()">Submit</button>
+        </form>
 
-        <div id="search_results">
-          <!-- /.row -->
-
-          <!-- Projects Row -->
-          <!--<div class="row">
-              <div class="col-md-4 portfolio-item">
-                  <a href="#">
-                      <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                  </a>
-                  <h3>
-                      <a href="#">Project Name</a>
-                  </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+          <!-- Page Header -->
+          <div class="row">
+              <div class="col-lg-12">
+                  <h1 class="page-header" id="result_keyword"></h1>
               </div>
-              <div class="col-md-4 portfolio-item">
-                  <a href="#">
-                      <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                  </a>
-                  <h3>
-                      <a href="#">Project Name</a>
-                  </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-              </div>
-              <div class="col-md-4 portfolio-item">
-                  <a href="#">
-                      <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                  </a>
-                  <h3>
-                      <a href="#">Project Name</a>
-                  </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-              </div> -->
           </div>
-        </div>
+
+          <div id="search_results"></div>
+    </div>
         <!-- /.row -->
 
     <!-- jQuery -->
