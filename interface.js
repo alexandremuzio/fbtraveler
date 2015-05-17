@@ -27,13 +27,13 @@ function createElement(photo, idx) {
 	if (photo.from == 'flickr') {
 		return $.parseHTML('<div id="' + idx + '" class="col-xs-4"> \
 		<a> <img src="' + photo.url + '" width="300" height="300" onclick="select_photo(event)"> </a>\
-		<h4><b>' + photo.from + '</b></h4>\
+		<div><h4><b>' + photo.from + '</b></h4></div>\
 		</div>');
 	}
 	else {
 		return $.parseHTML('<div id="' + idx + '" class="col-xs-4"> \
-		<a> <img src="' + photo.url + '" width="300" height="300" onclick="select_photo(event)"> </a>\
-		<h4><a href="' + photo.fromLink + '" target="blank"><b>' + photo.from + '</b></a></h4>\
+		<a> <img src="' + photo.url + '" width="300" height="300" onclick="select_photo(event)"> </a><a target="blank" href="' + photo.link + '"><img src="/images/external.png" width="20" height="20" style="position: absolute; top: 307px; left: 296px;"/></a>\
+		<div width="300" height="20"><h4><a href="' + photo.fromLink + '" target="blank"><b>' + photo.from + '</b></a></h4></div>\
 		</div>');
 	}
 	//TODO: retirei    href="' + photo.link + '" target="blank"      do a da imagem

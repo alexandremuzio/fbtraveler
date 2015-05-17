@@ -75,4 +75,5 @@
   function showSearchContainer() {
     $("#login").hide();
     $("#search").show();
+    $("#routes").show();
   }

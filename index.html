@@ -20,6 +20,8 @@
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDXFAl4ugNf7eZr4URirXlWWuLtt_xwTWs&sensor=TRUE">
     </script>
 
+    <script type="js/jquery.simplemodal-1.4.4.js"></script>
+
         <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -31,7 +33,7 @@
     <script src="interface.js"></script>
 </head>
 
-<body>
+<body style="background-color:#F0F8FF;">
     <script src="fbauthentication.js"></script>
 
     <div id="main" class="container">
@@ -101,9 +103,17 @@
 
           <div id="search_results" class="container"></div>
     </div>
+
+
+    <div class="buttonRoutes" id="routes" style="display:none;position:fixed; top:400px; right:0px;">
+        <button class="btn btn-success" height="40" >Calculate Route</button>
+    </div>
+
         <!-- /.row -->
     <script src="travel.js"></script>
     </div> <!-- main div -->
+
+    <div id="test"></div>
 </body>
 
 </html>
