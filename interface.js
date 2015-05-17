@@ -1,11 +1,13 @@
 var listFb;
 
-function select_photo() {
+function select_photo(event) {
 	//var checkbox = $(this);
-	var parent_div = checkbox.parent();
+	var parent_div = $(event.target).parent().parent();
+
 	var idx = parseInt(parent_div.attr("id"));
+	console.log(idx);
 	//if (checkbox.is(':checked')) {
-	if (!listFb[idx]) {
+	if (!listFb[idx].chosen) {
 		listFb[idx].chosen = 1;
 		parent_div.css("background-color","green");
 	}
@@ -18,7 +20,7 @@ function select_photo() {
 function create_element(photo, idx) {
 	console.log(photo);
 	return $.parseHTML('<div id="' + idx + '" class="col-xs-4"> \
-		<a> <img src="' + photo.url + '" width="250" height="250" onclick="select_photo()"> </a>\
+		<a> <img src="' + photo.url + '" width="250" height="250" onclick="select_photo(event)"> </a>\
 		<h3><a href="#">Project Name</a></h3>\
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>\
 		</div>');
@@ -32,7 +34,7 @@ function create_row(id, photoList) {
 	var $div = $("<div>", {id: "row" + id, class: "row"});
 
 	for (var i = 0; i < photoList.length; i++) {
-		var element = create_element(photoList[i], i);
+		var element = create_element(photoList[i], photoList[i].id);
 		$div.append(element);
 	}
 	father_div.append($div);
@@ -45,6 +47,10 @@ function searchByKeyword() {
 	
 	listFb = searchForFriendsPhotosMock(keyword);
 	//var listFlickr = GetByKeyWordFlickr(keyword);
+
+	for (var i = 0; i < listFb.length; i++) {
+		listFb[i].id = i;
+	};
 
 	console.log(listFb.length);
 	var i;
