@@ -1,15 +1,16 @@
 function flickrGetPhotosUrlByString(searchPattern, ans) {
+	var count = 0;
 	console.log ('func ' + searchPattern);
 	//var start = new Date().getTime();
 	$.ajax({type : 'GET',
 			async : true,
-			url : "https://api.flickr.com/services/rest/?method=flickr.places.find&api_key=b5c54cfbf6b205579020a6aa0d27102b&query="+searchPattern+"&format=json&nojsoncallback=1", 
-    		success : function (data) {
+			url : "https://api.flickr.com/services/rest/?method=flickr.places.find&api_key=1233dbff2601b204cad268c94eaa6496&query="+searchPattern+"&format=json&nojsoncallback=1", 
+    		success : function (data) {                                                    
     			//console.log ('first callback');
 				$.ajax({
 					type: 'GET',
 					async : true,
-					url : "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b5c54cfbf6b205579020a6aa0d27102b&sort=interestingness-desc&format=json&nojsoncallback=1&woe_id="+data.places.place[0].woeid, 
+					url : "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1233dbff2601b204cad268c94eaa6496&sort=interestingness-desc&format=json&nojsoncallback=1&woe_id="+data.places.place[0].woeid, 
 			     	success : function (data2) {
 			     		//console.log ('second callback');
 		 	 		   	var tam = 100;
@@ -23,11 +24,11 @@ function flickrGetPhotosUrlByString(searchPattern, ans) {
 							$.ajax({
 								type : 'GET', 
 								async : true,
-								url : 'https://api.flickr.com/services/rest/?photo_id='+data2.photos.photo[i].id+'&method=flickr.photos.geo.getLocation&api_key=31a25174344c9540f21930ce8bdfd721&format=json&nojsoncallback=1',
+								url : 'https://api.flickr.com/services/rest/?photo_id='+data2.photos.photo[i].id+'&method=flickr.photos.geo.getLocation&api_key=1233dbff2601b204cad268c94eaa6496&format=json&nojsoncallback=1',
 								success : function (data3) {
 										x = data3.photo.location.latitude;
 										y = data3.photo.location.longitude;
-										ans.push ({url : url, chosen : 0, from : 'flickr', x : x, y : y});
+										ans.push ({url : url, chosen : 0, from : 'flickr', x : x, y : y, id : count++});
 										//console.log ('location ' + data3.photo.location);
 							}});							
 							

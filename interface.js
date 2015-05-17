@@ -1,6 +1,6 @@
 var listFb;
 var elementsLoaded = 0;
-var numberOfInitialResults = 9;
+var numberOfInitialResults = 6;
 
 function select_photo(event) {
 	//var checkbox = $(this);
@@ -23,6 +23,7 @@ function select_photo(event) {
 
 function createElement(photo, idx) {
 	console.log(photo);
+	console.log("idx = " + idx);
 	if (photo.from == 'flickr') {
 		return $.parseHTML('<div id="' + idx + '" class="col-xs-4"> \
 		<a> <img src="' + photo.url + '" width="300" height="300" onclick="select_photo(event)"> </a>\
@@ -38,7 +39,7 @@ function createElement(photo, idx) {
 	//TODO: retirei    href="' + photo.link + '" target="blank"      do a da imagem
 }
 
-function createRow(id, photoList) {
+function createRow(id, photoList, limit) {
 	var father_div = $("#search_results");
 
 	var $div = $("<div>", {id: "row" + id, class: "row"});
@@ -46,6 +47,7 @@ function createRow(id, photoList) {
 	for (var i = 0; i < photoList.length; i++) {
 		var element = createElement(photoList[i], photoList[i].id);
 		$div.append(element);
+		if (limit != "undefined" && i >= limit) break;
 	}
 	father_div.append($div);
 }
@@ -72,12 +74,13 @@ function searchByKeyword() {
 	for (var i = 0; i + 3 < listFb.length && i < numberOfInitialResults; i = i + 3) {
 		elementsLoaded += 3;
 		var tempList = listFb.slice(i, i+3);
-		createRow(i/3, tempList);
+		createRow(Math.floor(i/3), tempList);
 	}
-	var tempList = listFb.slice(i, listFb.length);
-	createRow(i/3, tempList);
 
+	createRow(Math.floor(elementsLoaded/3), listFb.slice(elementsLoaded, listFb.length), listFb.length - elementsLoaded);
+	elementsLoaded += listFb.length - elementsLoaded;
 	console.log(listFb);
+	// console.log(listFb);
 	// //
 	// 	for (var i = 0; i < listFb.length && i < numberOfInitialResults; i = i + 4) {
 	// 		elementsLoaded++;
@@ -92,13 +95,9 @@ function searchByKeyword() {
 
 //after having created initial results
 function loadNewRow() {
-	console.log("Testing!!");
-	console.log (listFb);
-	elementsLoaded = 0;
-
+	console.log(elementsLoaded);
 	if (elementsLoaded + 3 < listFb.length) {
 		elementsLoaded+=3;
-		console.log ('custom message');
 		var tempList = listFb.slice(elementsLoaded, elementsLoaded+3);
 		console.log ('custom message2');
 		createRow(elementsLoaded/3, tempList);
@@ -108,6 +107,7 @@ function loadNewRow() {
 function clearAllRows() {
 	$(".row").remove();
 	listFb = [];
+	elementsLoaded = 0;
 }
 
 function showMap(list) {
