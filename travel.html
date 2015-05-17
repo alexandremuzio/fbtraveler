@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>FB Traveling Salesman</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+    </style>
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDXFAl4ugNf7eZr4URirXlWWuLtt_xwTWs&sensor=TRUE">
+    </script>
+    <script>
+      var map;
+      var directionsDisplay;
+      var directionsService;
+      var markerDisplay;
+      var markerArray = [];
+      var waypointsArray = [];
+      var start;
+      var end;
+
+      /*var points = [
+        {
+          x: 37.7699298,
+          y: -122.4469157,
+          url: "bla.png",
+          location: "Bla",
+          link: "",
+          from: "",
+          fromLink: ""
+        },
+        {
+          x: 37.7699,
+          y: -122.46,
+          url: "http://dicionarioinformal.com.br/image/d/17.jpg",
+          location: "Legal",
+          link: "",
+          from: "",
+          fromLink: ""
+        },
+        {
+          x: 37.7699,
+          y: -122.49,
+          url: "lol.png",
+          location: "Lol",
+          link: "",
+          from: "",
+          fromLink: ""
+        },
+        {
+          x: 37.7683909618184,
+          y: -122.51089453697205,
+          url: "https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/1619329_929201957124741_7000234925829646414_n.jpg?oh=68dbe5de382ea9696f1792dc711688f1&oe=55C5BC50&__gda__=1438870830_1a50827140eb232fa004fad75f84e577",
+          location: "CenturyLink Field",
+          link: "https://www.facebook.com/photo.php?fbid=929201957124741",
+          from: "Alexandre Muzio",
+          fromLink: "https://www.facebook.com/100001048354922"
+        }
+      ];       
+      */
+
+      var points = [
+        /*{
+          x: 41.896549,
+          y: 12.482445,
+          url: "https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xfa1/v/t1.0-9/318561_180869988666337_2113088858_n.jpg?oh=6d9f95ea11d434570ecbb611993265cd&oe=55C6172D&__gda__=1439057060_ffcc7f5dc10d22c9ed017b12b2f1616d",
+          link: "https://www.facebook.com/photo.php?fbid=180869988666337",
+          location: "Piazza Venezia",
+          from: "Victor Pascoal",
+          fromLink: "https://www.facebook.com/100002300127658",
+          country: "Italy"
+        },*/
+        {
+          x: 43.723004,
+          y: 10.396564,
+          url: "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/312980_180871311999538_1674390193_n.jpg?oh=2942c1b427b3f84c314c34ee65795a77&oe=560031C6&__gda__=1443549839_f301c68aeb44ea0fa654c95af3226fa1",
+          link: "https://www.facebook.com/photo.php?fbid=180871311999538",
+          location: "Tower of Pisa",
+          from: "Victor Pascoal",
+          fromLink: "https://www.facebook.com/100002300127658",
+          country: "Italy"
+        },
+        {
+          x: 41.890182,
+          y: 12.492199,
+          url: "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/381615_180873558665980_816673707_n.jpg?oh=0ed9ace379ddf685fcd5d7076fe11924&oe=55C59510&__gda__=1443403433_6e18673040dae6f046cb3df0b75f7798",
+          link: "https://www.facebook.com/photo.php?fbid=180869988666337",
+          location: "Colosseum",
+          from: "Victor Pascoal",
+          fromLink: "https://www.facebook.com/100002300127658",
+          country: "Italy"
+        },
+        {
+          x: 43.767937,
+          y: 11.253412,
+          url: "https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/388328_180871785332824_717595802_n.jpg?oh=5f96005674047074d1123c89c7a94ae1&oe=55D1DE59&__gda__=1438687368_38547229a55143f7fe9063ca51a5c887",
+          link: "https://www.facebook.com/photo.php?fbid=180871785332824",
+          location: "Ponte Vecchio",
+          from: "Victor Pascoal",
+          fromLink: "https://www.facebook.com/100002300127658",
+          country: "Italy"
+        }/*,
+        {
+          x: 45.434095,
+          y: 12.339154,
+          url: "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/311723_180872408666095_874713209_n.jpg?oh=2c78dcc772a897e2c49fd070524b332b&oe=56099D91&__gda__=1439896128_4a89ebf3b9748a8e2fdf299bb390c698",
+          link: "https://www.facebook.com/photo.php?fbid=180872408666095",
+          location: "Campanário de São Marcos",
+          from: "Victor Pascoal",
+          fromLink: "https://www.facebook.com/100002300127658",
+          country: "Italy"
+        }*/
+      ];
+
+      function initialize() {
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService();
+
+        // Create a map and center it on start.
+        var mapOptions = {
+          zoom: 13,
+          center: new google.maps.LatLng(points[0].x, points[0].y)
+        }
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        // Create a renderer for directions and bind it to the map.
+        var rendererOptions = {
+          map: map,
+          suppressMarkers: true
+        }
+        directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
+        // Instantiate an info window to hold marker content.
+        markerDisplay = new google.maps.InfoWindow();
+
+        createRoute(points);
+
+        // Start calculating the route
+        refreshMode();
+      }
+
+      function refreshMode() {
+
+        // First, remove any existing markers from the map.
+        for (var i = 0; i < markerArray.length; i++) {
+          markerArray[i].setMap(null);
+        }
+
+        // Now, clear the array itself.
+        markerArray = [];
+
+        // Retrieve the start and end locations and create
+        // a DirectionsRequest using the specific direction.
+        var selectedMode = document.getElementById('mode').value;
+        
+        // Make the request
+        makeRequest(selectedMode);
+      }
+
+      function createRoute(points) {
+        var maxDist = 0;
+        var dist;
+        var startPoint, endPoint;
+        
+        for (var i = 0; i < points.length; i++) {
+          for (var j = i+1; j < points.length; j++) {
+            dist = (points[i].x - points[j].x)*(points[i].x - points[j].x) + (points[i].y - points[j].y)*(points[i].y - points[j].y);
+            if (maxDist < dist) {
+              startPoint = i;
+              endPoint = j;
+              maxDist = dist;
+            }  
+          }
+        }
+
+        start = new google.maps.LatLng(points[startPoint].x, points[startPoint].y);
+        end = new google.maps.LatLng(points[endPoint].x, points[endPoint].y);
+
+        for (var i = 0; i < points.length; i++) {
+          if (i != startPoint && i != endPoint) {
+            waypointsArray.push({
+              location: new google.maps.LatLng(points[i].x, points[i].y),
+              stopover: true
+            });
+          }
+        }
+      }
+
+      function makeRequest(selectedMode) {     
+        var request = {
+            origin: start,
+            destination: end,
+            waypoints: waypointsArray,
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode[selectedMode]
+        };
+
+        // Route the directions and pass the response to a
+        // function to create markers for each step.
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+          }
+        });
+
+        createCustomMarkers(points);
+      }
+
+      function createCustomMarkers(points) {
+        // First, remove any existing markers from the map.
+        for (var i = 0; i < markerArray.length; i++) {
+          markerArray[i].setMap(null);
+        }
+
+        // Now, clear the array itself.
+        markerArray = [];
+
+        // For each waypoint make a custom marker
+        for (var i = 0; i < points.length; i++) {
+          var contentString = '<a href="' + points[i].link + '" target="_blank"><img src="' + points[i].url + '" width="150" height="150" border="0"></a> <p><b>Location</b>: ' + points[i].location +
+          '<br><b>From</b>: ' + '<a href="' + points[i].fromLink + '" target="_blank">' + points[i].from + '</a></p>';
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(points[i].x, points[i].y),
+            map: map
+          });
+          attachInstructionText(marker, contentString);
+          markerArray[i] = marker;
+        }
+
+      }
+
+      function attachInstructionText(marker, contentString) {
+        google.maps.event.addListener(marker, 'click', function() {
+          // Open an info window when the marker is clicked on,
+          // containing the text of the step.
+          markerDisplay.setContent(contentString);
+          markerDisplay.open(map, marker);
+        });
+      }      
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+      <div id="panel">
+      <b>Mode of Travel: </b>
+      <select id="mode" onchange="refreshMode();">
+        <option value="DRIVING">Driving</option>
+        <option value="WALKING">Walking</option>
+        <option value="BICYCLING">Bicycling</option>
+        <option value="TRANSIT">Transit</option>
+      </select>
+      </div>
+      <div id="map-canvas"></div>
+  </body>
+</html>
