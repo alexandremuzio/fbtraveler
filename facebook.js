@@ -146,6 +146,17 @@ photos = [
 		fromLink: "https://www.facebook.com/100002300127658",
 		country: "Italy",
 		chosen: 0
+	},
+	{
+		x: 43.776863,
+		y: 11.269355,
+		url: "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/p180x540/11071822_847030975381618_9071223335854490359_n.jpg?oh=e071a4769e509f9db28ad6c583014313&oe=5600EAAB&__gda__=1439021846_edcc3532b1aafe0ab7c93d0bae15ad68",
+		link: "https://www.facebook.com/photo.php?fbid=847030975381618",
+		location: "Parco Delle Cascine Firenze",
+		from: "Raphael Rodrigues Souza",
+		fromLink: "https://www.facebook.com/100002241696855",
+		country: "Italy",
+		chosen: 0
 	}
 ];
 
