@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "FBTraveler": {
+            "applicationId": "cgeAzV05lkfI7JOYPHTMGPxSdRzk9H2jhMoMHXYU", 
+            "masterKey": "PnQcK3uyaNk5ApZs0jkNBASo9Z29Q6cfJdlgBwKF"
+        }, 
+        "_default": {
+            "link": "FBTraveler"
+        }
+    }
+}

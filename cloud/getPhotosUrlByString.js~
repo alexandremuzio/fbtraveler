@@ -1,0 +1,3 @@
+function getPhotosUrlByString(searchPattern) {
+    $.get("https://api.flickr.com/services/rest/", { method : "flickr.places.find", api_key : "b5c54cfbf6b205579020a6aa0d27102b", nojsoncallback : "1", query : searchPattern, format : "json");
+}
