@@ -41,6 +41,7 @@ function createRow(id, photoList) {
 }
 
 function searchByKeyword() {
+	clearAllRows();
 	var keyword = $("#search_box").val();
 	console.log("Showing results for " + keyword);
 	$('#result_keyword').text("Results for: " + keyword);
@@ -56,6 +57,7 @@ function searchByKeyword() {
 	console.log(listFb.length);
 
 	for (var i = 0; i + 3 < listFb.length && i < numberOfInitialResults; i = i + 3) {
+		elementsLoaded += 3;
 		var tempList = listFb.slice(i, i+3);
 		createRow(i/3, tempList);
 	}
@@ -74,25 +76,36 @@ function searchByKeyword() {
 }
 
 
+
+//after having created initial results
+function loadNewRow() {
+	console.log("Testing!!");
+	console.log (listFb);
+	elementsLoaded = 0;
+
+	if (elementsLoaded + 3 < listFb.length) {
+		elementsLoaded+=3;
+		console.log ('custom message');
+		var tempList = listFb.slice(elementsLoaded, elementsLoaded+3);
+		console.log ('custom message2');
+		createRow(elementsLoaded/3, tempList);
+	}
+}
+
+function clearAllRows() {
+	$(".row").remove();
+	listFb = [];
+}
+
 function showMap(list) {
 	points = list;
 	//...
 }
 
-//after having created initial results
-function loadNewRow() {
-	elementsLoaded = 0;
-	for (var i = elementsLoaded; i < listFb.length; i = i + 4) {
-	elementsLoaded++;
-	var tempList = listFb.slice(i, i+3);
-	createRow(i, tempList);
-	}
-}
-
-
 $(window).scroll(function() {
     if($(window).scrollTop() == $(document).height() - $(window).height()) {
-    	//loadNewRow();
+    	loadNewRow();
+    	console.log("elementsLoaded = "  + elementsLoaded);
     	console.log("Reached bottom");
     }
 });
