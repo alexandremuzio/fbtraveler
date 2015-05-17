@@ -56,7 +56,8 @@ photos = [
 		location: "CenturyLink Field",
 		from: "Alexandre Muzio",
 		fromLink: "https://www.facebook.com/100001048354922",
-		country: "United States"
+		country: "United States",
+		chosen: 0
 	},
 	{
 		x: -23.578917,
@@ -66,7 +67,8 @@ photos = [
 		location: "Caraguatatuba",
 		from: "Lucas Müller M Oliveira",
 		fromLink: "https://www.facebook.com/100002682030295",
-		country: "Brazil"
+		country: "Brazil",
+		chosen: 0
 	},
 	{
 		x: -23.587445,
@@ -76,7 +78,8 @@ photos = [
 		location: "Facebook São Paulo",
 		from: "Lucas Müller M Oliveira",
 		fromLink: "https://www.facebook.com/100002682030295",
-		country: "Brazil"
+		country: "Brazil",
+		chosen: 0
 	},
 	{
 		x: -23.204669,
@@ -86,7 +89,8 @@ photos = [
 		location: "ITA",
 		from: "Matheus Ferraz",
 		fromLink: "https://www.facebook.com/100000867477504",
-		country: "Brazil"
+		country: "Brazil",
+		chosen: 0
 	},
 	{
 		x: 41.896549,
@@ -96,7 +100,8 @@ photos = [
 		location: "Piazza Venezia",
 		from: "Victor Pascoal",
 		fromLink: "https://www.facebook.com/100002300127658",
-		country: "Italy"
+		country: "Italy",
+		chosen: 0
 	},
 	{
 		x: 43.723004,
@@ -106,7 +111,8 @@ photos = [
 		location: "Tower of Pisa",
 		from: "Victor Pascoal",
 		fromLink: "https://www.facebook.com/100002300127658",
-		country: "Italy"
+		country: "Italy",
+		chosen: 0
 	},
 	{
 		x: 41.890182,
@@ -116,7 +122,8 @@ photos = [
 		location: "Colosseum",
 		from: "Victor Pascoal",
 		fromLink: "https://www.facebook.com/100002300127658",
-		country: "Italy"
+		country: "Italy",
+		chosen: 0
 	},
 	{
 		x: 43.767937,
@@ -126,7 +133,8 @@ photos = [
 		location: "Ponte Vecchio",
 		from: "Victor Pascoal",
 		fromLink: "https://www.facebook.com/100002300127658",
-		country: "Italy"
+		country: "Italy",
+		chosen: 0
 	},
 	{
 		x: 45.434095,
@@ -136,17 +144,20 @@ photos = [
 		location: "Campanário de São Marcos",
 		from: "Victor Pascoal",
 		fromLink: "https://www.facebook.com/100002300127658",
-		country: "Italy"
+		country: "Italy",
+		chosen: 0
 	}
 ];
 
-	var ret_list = [];
-	for (var i = 0; i < photos.length; i++) {
-		if (photos[i].country == country) {
-			ret_list.push(photos[i]);
-		}
-	}
-	return ret_list;
+	return photos.filter(function(x) {return x.country == country});
+
+	//var ret_list = [];
+	//for (var i = 0; i < photos.length; i++) {
+	//	if (photos[i].country == country) {
+	//		ret_list.push(photos[i]);
+	//	}
+	//}
+	//return ret_list;
 }
 
 function showFacebookProfilePhoto() {
