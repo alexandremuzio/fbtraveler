@@ -54,6 +54,7 @@ function searchByKeyword() {
 	var keyword = $("#search_box").val();
 	console.log("Showing results for " + keyword);
 	$('#result_keyword').text("Best results for " + keyword);
+	$('#result_keyword').css("text-align", "center");
 	
 	listFb = searchForFriendsPhotosMock(keyword);
 
