@@ -17,10 +17,12 @@ function flickrGetPhotosUrlByString(searchPattern, ans) {
 		 	 		   	//var count = 0;
 				     	if (data2.photos.photo.length < tam)
 				     		tam = data2.photos.photo.length ;
-					 	for (var i = 0; i < tam; i++) {
-							url = 'https://farm'+data2.photos.photo[i].farm+'.staticflickr.com/'+data2.photos.photo[i].server+'/'
-							+data2.photos.photo[i].id+'_'+data2.photos.photo[i].secret+'.jpg';
+
+				 		function f (id) {
+							var url = 'https://farm'+data2.photos.photo[id].farm+'.staticflickr.com/'+data2.photos.photo[id].server+'/'
+							+data2.photos.photo[id].id+'_'+data2.photos.photo[id].secret+'.jpg';
 							var x, y;
+							//console.log (id);
 							$.ajax({
 								type : 'GET', 
 								async : true,
@@ -28,10 +30,12 @@ function flickrGetPhotosUrlByString(searchPattern, ans) {
 								success : function (data3) {
 										x = data3.photo.location.latitude;
 										y = data3.photo.location.longitude;
-										ans.push ({url : url, chosen : 0, from : 'flickr', x : x, y : y, id : count++});
+										ans.push ({url : url, chosen : 0, from : 'flickr', x : x, y : y, id: count++});
 										//console.log ('location ' + data3.photo.location);
 							}});							
-							
+						}
+					 	for (var i = 0; i < tam; i++) {
+					 		f (i);
 							//console.log ('url ' + url + ' x ' + x + ' y ' + y);
 					  		//count++;
 					  		//if (count == 100) 
