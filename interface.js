@@ -1,4 +1,6 @@
 var listFb;
+var elementsLoaded = 0;
+var numberOfInitialResults = 9;
 
 function select_photo(event) {
 	//var checkbox = $(this);
@@ -17,7 +19,7 @@ function select_photo(event) {
 	}
 }
 
-function create_element(photo, idx) {
+function createElement(photo, idx) {
 	console.log(photo);
 	return $.parseHTML('<div id="' + idx + '" class="col-xs-4"> \
 		<a> <img src="' + photo.url + '" width="250" height="250" onclick="select_photo(event)"> </a>\
@@ -28,13 +30,13 @@ function create_element(photo, idx) {
 	//TODO: retirei    href="' + photo.link + '" target="blank"      do a da imagem
 }
 
-function create_row(id, photoList) {
+function createRow(id, photoList) {
 	var father_div = $("#search_results");
 
 	var $div = $("<div>", {id: "row" + id, class: "row"});
 
 	for (var i = 0; i < photoList.length; i++) {
-		var element = create_element(photoList[i], photoList[i].id);
+		var element = createElement(photoList[i], photoList[i].id);
 		$div.append(element);
 	}
 	father_div.append($div);
@@ -46,20 +48,55 @@ function searchByKeyword() {
 	$('#result_keyword').text("Results for: " + keyword);
 	
 	listFb = searchForFriendsPhotosMock(keyword);
-	//var listFlickr = GetByKeyWordFlickr(keyword);
+
+	//var listFlickr = GetByKeyWordFlickr(keyword);	
+
+	//asyncronous method
+	flickrGetPhotosUrlByString(keyword, listFb);
+	console.log(listFb.length);
 
 	for (var i = 0; i < listFb.length; i++) {
 		listFb[i].id = i;
 	};
 
-	console.log(listFb.length);
-	var i;
-	for (i = 0; i + 3 < listFb.length; i = i + 3) {
+	for (var i = 0; i + 3 < listFb.length && i < numberOfInitialResults; i = i + 3) {
 		var tempList = listFb.slice(i, i+3);
-		create_row(i/3, tempList);
+		createRow(i/3, tempList);
 	}
 	var tempList = listFb.slice(i, listFb.length);
-	create_row(i/3, tempList);
+	createRow(i/3, tempList);
 
 	console.log(listFb);
+	// //
+	// 	for (var i = 0; i < listFb.length && i < numberOfInitialResults; i = i + 4) {
+	// 		elementsLoaded++;
+	// 		var tempList = listFb.slice(i, i+3);
+	// 		createRow(i, tempList);
+	// 	}
+	// 	console.log(listFb.length);
+	// 	createRow(1);
 }
+
+
+function showMap(list) {
+	points = list;
+	//...
+}
+
+//after having created initial results
+function loadNewRow() {
+	elementsLoaded = 0;
+	for (var i = elementsLoaded; i < listFb.length; i = i + 4) {
+	elementsLoaded++;
+	var tempList = listFb.slice(i, i+3);
+	createRow(i, tempList);
+	}
+}
+
+
+$(window).scroll(function() {
+    if($(window).scrollTop() == $(document).height() - $(window).height()) {
+    	//loadNewRow();
+    	console.log("Reached bottom");
+    }
+});

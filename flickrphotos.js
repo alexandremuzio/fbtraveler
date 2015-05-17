@@ -1,4 +1,4 @@
-function getPhotosUrlByString(searchPattern, ans) {
+function flickrGetPhotosUrlByString(searchPattern, ans) {
 	console.log ('func ' + searchPattern);
 	//var start = new Date().getTime();
 	$.ajax({type : 'GET',
