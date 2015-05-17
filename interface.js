@@ -1,5 +1,7 @@
+var listFb = [];
 var elementsLoaded = 0;
 var numberOfInitialResults = 9;
+
 
 function createElement(photo) {
 	console.log(photo);
@@ -27,8 +29,10 @@ function searchByKeyword() {
 	console.log("Showing results for " + keyword);
 	$('#result_keyword').text("Results for: " + keyword);
 	
-	var listFb = searchForFriendsPhotosMock(keyword);
-	//var listFlickr = GetByKeyWordFlickr(keyword);
+	listFb = searchForFriendsPhotosMock(keyword);
+
+	//asyncronous method
+	flickrGetPhotosUrlByString(keyword, listFb);
 
 	//show initial results
 	console.log(listFb.length);
@@ -37,7 +41,7 @@ function searchByKeyword() {
 		var tempList = listFb.slice(i, i+3);
 		createRow(i, tempList);
 	}
-	console.log(listFb);
+	console.log(listFb.length);
 	createRow(1);
 }
 
