@@ -30,7 +30,7 @@ function flickrGetPhotosUrlByString(searchPattern, ans) {
 								success : function (data3) {
 										x = data3.photo.location.latitude;
 										y = data3.photo.location.longitude;
-										ans.push ({url : url, chosen : 0, from : 'flickr', x : x, y : y, id: count++});
+										ans.push ({url : url, chosen : 0, from : 'flickr', x : x, y : y, id : count++});
 										//console.log ('location ' + data3.photo.location);
 							}});							
 						}

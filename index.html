@@ -10,6 +10,25 @@
 
     <title>FB Traveler</title>
 
+
+    <style type="text/css">
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      },
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+    </style>
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -27,7 +46,8 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+            <!-- /.row -->
+    <script src="travel.js"></script>
     <script src="flickrphotos.js"></script>
     <script src="facebook.js"></script>
     <script src="interface.js"></script>
@@ -57,13 +77,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
+                        <a href="/">Home</a>
                     </li>
                 </ul>
             </div>
@@ -86,10 +100,11 @@
 
 
     <!-- Page Content -->
+    <div id="resultContent">
     <div class="container" id="search" style="display:none;">
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-              <input type="text" class="form-control" id="search_box" placeholder="Search">
+              <input type="text" class="form-control" id="search_box" placeholder="Search for Places">
             </div>
             <button type="button" class="btn btn-default" onclick="searchByKeyword()">Submit</button>
         </form>
@@ -102,18 +117,27 @@
           </div>
 
           <div id="search_results" class="container"></div>
+
+              <div class="buttonRoutes" id="routes" style="position:fixed; top:85px; right:0px;">
+        <button class="btn btn-success" height="40" onclick="displayMap()" >Calculate Route</button>
     </div>
 
-
-    <div class="buttonRoutes" id="routes" style="display:none;position:fixed; top:400px; right:0px;">
-        <button class="btn btn-success" height="40" >Calculate Route</button>
+    </div>
     </div>
 
-        <!-- /.row -->
-    <script src="travel.js"></script>
+     <div id="panel" style="display:none">
+        <b>Mode of Travel: </b>
+        <select id="mode" onchange="refreshMode();">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+        </select>
+    </div>
+
     </div> <!-- main div -->
 
-    <div id="test"></div>
+     <div id="map-canvas"></div>
 </body>
 
 </html>

@@ -6,31 +6,63 @@ var markerArray = [];
 var waypointsArray = [];
 var start;
 var end;
+/*var myPoints = [
+        {
+          x: 43.723004,
+          y: 10.396564,
+          url: "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/312980_180871311999538_1674390193_n.jpg?oh=2942c1b427b3f84c314c34ee65795a77&oe=560031C6&__gda__=1443549839_f301c68aeb44ea0fa654c95af3226fa1",
+          link: "https://www.facebook.com/photo.php?fbid=180871311999538",
+          location: "Tower of Pisa",
+          from: "Victor Pascoal",
+          fromLink: "https://www.facebook.com/100002300127658",
+          country: "Italy"
+        },
+        {
+          x: 41.890182,
+          y: 12.492199,
+          url: "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/381615_180873558665980_816673707_n.jpg?oh=0ed9ace379ddf685fcd5d7076fe11924&oe=55C59510&__gda__=1443403433_6e18673040dae6f046cb3df0b75f7798",
+          link: "https://www.facebook.com/photo.php?fbid=180869988666337",
+          location: "Colosseum",
+          from: "Victor Pascoal",
+          fromLink: "https://www.facebook.com/100002300127658",
+          country: "Italy"
+        },
+        {
+          x: 43.767937,
+          y: 11.253412,
+          url: "https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/388328_180871785332824_717595802_n.jpg?oh=5f96005674047074d1123c89c7a94ae1&oe=55D1DE59&__gda__=1438687368_38547229a55143f7fe9063ca51a5c887",
+          link: "https://www.facebook.com/photo.php?fbid=180871785332824",
+          location: "Ponte Vecchio",
+          from: "Victor Pascoal",
+          fromLink: "https://www.facebook.com/100002300127658",
+          country: "Italy"
+        }
+      ];;
+*/
+function initialize(points) {
+  myPoints = points;
 
-var points;
-
-function initialize() {
   // Instantiate a directions service.
   directionsService = new google.maps.DirectionsService();
 
   // Create a map and center it on start.
   var mapOptions = {
     zoom: 13,
-    center: new google.maps.LatLng(points[0].x, points[0].y)
+    center: new google.maps.LatLng(myPoints[0].x, myPoints[0].y)
   }
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
   // Create a renderer for directions and bind it to the map.
   var rendererOptions = {
     map: map,
     suppressMarkers: true
   }
+
   directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 
   // Instantiate an info window to hold marker content.
   markerDisplay = new google.maps.InfoWindow();
 
-  createRoute(points);
+  createRoute(myPoints);
 
   // Start calculating the route
   refreshMode();
@@ -100,7 +132,7 @@ function makeRequest(selectedMode) {
     }
   });
 
-  createCustomMarkers(points);
+  createCustomMarkers(myPoints);
 }
 
 function createCustomMarkers(points) {
@@ -135,4 +167,4 @@ function attachInstructionText(marker, contentString) {
   });
 }      
 
-// google.maps.event.addDomListener(window, 'load', initialize);
+//google.maps.event.addDomListener(window, 'load', initialize);

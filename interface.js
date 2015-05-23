@@ -91,8 +91,6 @@ function searchByKeyword() {
 	// 	createRow(1);
 }
 
-
-
 //after having created initial results
 function loadNewRow() {
 	console.log(elementsLoaded);
@@ -104,15 +102,26 @@ function loadNewRow() {
 	}
 }
 
+function displayMap()
+{		
+	$('#resultContent').hide();
+	//var chosenPoints = listFb.filter(function(x) {return x.chosen;});
+	var chosenPoints = [];
+	for (var i = 0; i < listFb.length; i++) {
+		if (listFb[i].chosen == 1) {
+			chosenPoints.push(listFb[i]);
+		}
+	}
+	$('#panel').show();
+	//$('#map-canvas').show();			
+	//console.log($('#map-canvas'));		
+	initialize(chosenPoints);	
+}
+
 function clearAllRows() {
 	$(".row").remove();
 	listFb = [];
 	elementsLoaded = 0;
-}
-
-function showMap(list) {
-	points = list;
-	//...
 }
 
 $(window).scroll(function() {

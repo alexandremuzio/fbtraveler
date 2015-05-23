@@ -1,0 +1,22 @@
+{
+  "name": "fbtraveler",
+  "version": "1.0.0",
+  "description": "App for São Paulo Hackathon @ Facebook",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexandremuzio/fbtraveler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandremuzio/fbtraveler/issues"
+  },
+  "homepage": "https://github.com/alexandremuzio/fbtraveler",
+  "dependencies": {
+    "express": "^4.12.4"
+  }
+}
